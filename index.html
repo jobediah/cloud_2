@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+{% autoescape true %}
+<html>
+  <body>
+
+
+    <form action="/animals" method="post">
+        <p>Pet name:</p>
+        <input type="text" name="name"<br>
+        
+        <p>Type of pet:</p>
+        <input type="radio" name="pets" value="dog" checked> Dog<br>
+        <input type="radio" name="pets" value="cat"> Cat<br>
+        <input type="radio" name="pets" value="other"> Other
+        
+        <p>Age of pet:</p>
+        <input type="number" name="age" min="1" max="25">
+        
+        <p>Vaccinated?</p>
+        <input type="checkbox" name="rabies" value="rabies">rabies<br>
+        <input type="checkbox" name="bordetella" value="bordetella">bordetella<br>
+            
+            
+        <p>Date of vaccination:</p>
+        <input type="date" name="vdate">
+        
+        <input type="submit" value="Submit">
+    </form>
+        
+    <p>Your entries (click on the name to edit):</p>
+    {% block body %}
+    <ul>
+        {% for foo in foos %}
+        {% if foo.author == user %}
+        <li><a href='/edit?key={{ foo.key.urlsafe() }}'>{{ foo.name }}</a></li>
+        <ul>
+            <li>Type: {{ foo.type }}</li>
+            <li>Age: {{ foo.age }}</li>
+            {% if foo.rabies %}
+            <li>Rabies vaccinaion: Yes</li>
+            {% endif %}
+            {% if foo.bordetella %}
+            <li>Bordetella vaccination: Yes</li>
+            {% endif %}
+            {% if foo.date %}
+            <li>Vaccinated on: {{ foo.date }}</li>
+            {% endif %}
+        </ul>
+        {% endif %}
+        {% endfor %}
+    </ul>
+    {% endblock %}
+
+    <a href="{{ url|safe }}">{{ url_linktext }}</a>
+
+  </body>
+</html>
+{% endautoescape %}

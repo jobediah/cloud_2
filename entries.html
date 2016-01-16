@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% autoescape true %}
+<html>
+    <body>
+        
+        {% block content %}
+        <form action="/save" method="post">
+            <p>Pet name:</p>
+                <input type="text" name="name" value='{{ name }}'<br>
+                
+            <p>Type of pet:</p>
+                {% if type == 'dog' %}
+                <input type="radio" name="pets" value="dog" checked> Dog<br>
+                {% else %}
+                <input type="radio" name="pets" value="dog"> Dog<br>
+                {% endif %}
+                {% if type == 'cat' %}
+                <input type="radio" name="pets" value="cat" checked> Cat<br>
+                {% else %}
+                <input type="radio" name="pets" value="cat"> Cat<br>
+                {% endif %}
+                {% if type == 'other' %}
+                <input type="radio" name="pets" value="other" checked> Other<br>
+                {% else %}
+                <input type="radio" name="pets" value="other"> Other<br>
+                {% endif %}
+
+                            
+            <p>Age of pet:</p>
+                <input type="number" name="age" value='{{ age }}' min="1" max="25">
+                                
+            <p>Vaccinated?</p>
+                <input type="checkbox" name="rabies" value="rabies">rabies<br>
+                <input type="checkbox" name="bordetella" value="bordetella">bordetella<br>
+                                        
+                                        
+            <p>Date of vaccination:</p>
+                <input type="date" name="vdate" value='{{ date }}'>
+               
+                <input type="hidden" name="key" value='{{ key }}'>
+               
+                <input type="submit" value="Save changes">
+        </form>
+        {% endblock %}
+        
+    </body>
+</html>
+{% endautoescape %}
